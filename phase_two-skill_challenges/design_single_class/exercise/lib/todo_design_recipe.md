@@ -2,13 +2,13 @@
 
 ## 1. Describe the Problem
 
-> As a user
-> So that I can keep track of my tasks
-> I want a program that I can add todo tasks to and see
+> As a user     
+> So that I can keep track of my tasks     
+> I want a program that I can add todo tasks to and see     
 > a list of them
 
-> As a user
-> So that I can focus on tasks to complete
+> As a user      
+> So that I can focus on tasks to complete      
 > I want to mark tasks as complete and have them disappear from the list
 
 ## 2. Design the Class Interface
@@ -56,7 +56,7 @@ todolist.list # => ['Walk the dog', 'Do homework']
 todolist = TodoList.new 
 todolist.add('Walk the dog')
 todolist.add('Do homework')
-todo_list.completed('Walk the dog')
+todolist.completed('Walk the dog')
 todolist.list # => ['Do homework']
 
 # 5
