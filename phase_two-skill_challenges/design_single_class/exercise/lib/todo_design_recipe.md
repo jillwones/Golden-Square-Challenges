@@ -13,7 +13,8 @@
 
 ## 2. Design the Class Interface
 
-Class name: TodoList
+Class name: TodoList       
+
 Design of the initializer and parameters it takes: It will take no parameters but it initialises @todolist as an empty array.
 
 Public methods:
