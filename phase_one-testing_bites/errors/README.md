@@ -9,4 +9,8 @@ Here's a good [stack overflow](https://stackoverflow.com/questions/21567838/when
 Summary of post:         
 When you pass a code block to expect, you are telling expect that you want it to examine the resulting behavior, the changes, made by your code block's execution, and then to let you know if it meets up to the expectations that you provide it.
 
-When you pass an argument to expect, you are telling ruby to evaluate that argument to come to some value before expect even gets involved, and then you are passing that value to expect to see if it meets up to some expectation. But if there is an error then nothing is returned so we never get to the point of comparing anything to the expected value
+When you pass an argument to expect, you are telling ruby to evaluate that argument to come to some value before expect even gets involved, and then you are passing that value to expect to see if it meets up to some expectation. But if there is an error then nothing is returned so we never get to the point of comparing anything to the expected value.
+
+* use curly-brace (a block): when you want to test the behavior
+
+* use parenthesis when you want to test the returned value
