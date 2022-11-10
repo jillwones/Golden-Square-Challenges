@@ -37,7 +37,9 @@ class DiaryEntry
   end
 
   private
+
   def words
     @contents.split(' ')
   end
+  
 end
