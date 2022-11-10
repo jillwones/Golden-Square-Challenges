@@ -27,4 +27,12 @@ class Diary
     sum.ceil
   end
 
+  def find_best_entry_for_reading_time(wpm, minutes)
+    raise "Diary empty" if @diary.empty?
+    reading_times_hash = Hash.new
+    @diary.each do |entry|
+      reading_times_hash[entry] = entry.reading_time_int(wpm)
+    end
+    reading_times_hash.select{|entry,time| time <= minutes}.sort_by{|entry,time| time}.to_a[0][0]
+  end
 end

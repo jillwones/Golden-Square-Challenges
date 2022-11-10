@@ -12,6 +12,13 @@ describe Diary do
       diary = Diary.new
       expect(diary.all).to eq []
     end
+    it "returns 0 reading time" do
+      diary = Diary.new
+      expect(diary.reading_time(100)).to eq 0
+    end
+    it "throws an error for best entry for reading time" do
+      diary = Diary.new
+      expect{ diary.find_best_entry_for_reading_time(100,5) }.to raise_error "Diary empty"
+    end
   end
-
 end
