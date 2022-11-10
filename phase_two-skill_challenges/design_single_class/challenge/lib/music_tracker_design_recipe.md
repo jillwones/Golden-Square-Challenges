@@ -15,7 +15,7 @@ class MusicTracker
     @music_library = {}
   end
   
-  def add(Artist, Song)
+  def add(artist, song)
     # artist and song are both strings
     # this method should add the song to the correct artist in the hash if artist present
     # if not makes a new artist and adds the song to the new artist
@@ -28,7 +28,7 @@ class MusicTracker
    # if empty it raises 'No music in library'
   end 
 
-  def list_artist(Artist)
+  def list_artist(artist)
    # raises error if artist not in library
    # shows all the songs for that artist in the library
   end
@@ -55,13 +55,13 @@ music_library.list_all # => ["Music Library:", "* Aerosmith: Dream On"].join("\n
 music_library = MusicTracker.new 
 music_library.add('Aerosmith', 'Dream On')
 music_library.add('Aerosmith', 'Sweet Emotion')
-todolist.list_all # => ["Music Library:", "* Aerosmith: Dream On, Sweet Emotion"].join("\n") + "\n"
+music_library.list_all # => ["Music Library:", "* Aerosmith: Dream On, Sweet Emotion"].join("\n") + "\n"
 
 # 4
 music_library = MusicTracker.new 
 music_library.add('Aerosmith', 'Dream On')
 music_library.add('Calvin Harris', 'Acceptable In the 80s')
-todolist.list_all # => ["Music Library:", "* Aerosmith: Dream On", "* Calvin Harris: Acceptable In the 80s"].join("\n") + "\n"
+music_library.list_all # => ["Music Library:", "* Aerosmith: Dream On", "* Calvin Harris: Acceptable In the 80s"].join("\n") + "\n"
 
 # 5
 music_library = MusicTracker.new 
