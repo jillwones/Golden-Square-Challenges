@@ -7,6 +7,8 @@ The golden square covers 4 essential practices:
 * Debugging
 * Pair Programming
 
+More on the golden square [here](https://github.com/jillwones/golden-square/blob/main/pills/the_golden_square.md)
+
 The objectives of this module are:
 
 * Learn to test-drive programs with multiple classes.
