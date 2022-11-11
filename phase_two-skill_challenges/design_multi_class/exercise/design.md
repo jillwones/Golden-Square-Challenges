@@ -52,11 +52,12 @@ class Diary
     # returns the diary entry with the most words the user can get through in the given wpm and minutes
   end
   
-  def see_all_contacts
+  def check_diary_for_phone_numbers(contacts)
+    # parameter is an instance of contacts and should be an array of contacts
     # will show all of the contacts + their numbers based on the phone numbers found in the diary entries
     # will set all_contacts = []
-    # loop through the diary entries and loop through the contacts within, then check if diary entries include? the contact.number.to_s
-    # if true then add "#{contact.name} - #{contact.number}" to the all_contacts array
+    # loop through the @diary and loop through the contacts within, then check if @diary array include? the contact.number.to_s
+    # if true then add "#{entry.title} - #{contact.name} - #{contact.number}" to the all_contacts array
     # then returns all_contacts.join(', '), if that is an empty string then return 'no contacts found within diary'
   end
 end
@@ -133,25 +134,69 @@ end
  
 ```ruby
 # 1 
-# TodoList#list_all puts all todos in the list:
+# TodoList#list_all putses all todos on the todo_list:
 todo_list = TodoList.new
 todo_1 = Todo.new('Walk the dog')
 todo_2 = Todo.new('Clean house')
 todo_list.add(todo_1)
 todo_list.add(todo_2)
-expected = ["All TODOS:", "* Walk the dog", "* Clean house].join("\n") + "\n"
+expected = ["All TODOS:", "* Walk the dog", "* Clean house"].join("\n") + "\n"
 expect{ todo_list.list_all }.to output(expected).to_stdout
 
 # 2 
-# Contacts#contacts will return an array of contacts (maybe I shouldnt have called everything contacts haha)
+# Contacts#contacts returns an array of contacts (maybe I shouldnt have called everything contacts haha)
 iphone = Contacts.new
-contact_1 = Contact.new('Bob',01234567893)
-contact_2 = Contact.new('Jill',03040294820)
+contact_1 = Contact.new('Bob', 01234567893)
+contact_2 = Contact.new('Jill', 03040294820)
 iphone.add(contact_1)
 iphone.add(contact_2)
 expect(iphone.contacts).to eq([contact_1, contact_2])
 
 # 3
+# Diary#all return all diary entries in the Diary
+diary = Diary.new
+entry_1 = DiaryEntry.new('Title', 'Contents')
+entry_2 = DiaryEntry.new('Title 2', 'Contents 2')
+diary.add(entry_1)
+diary.add(entry_2)
+expect(diary.all).to eq([entry_1, entry_2])
+
+# 4
+# Diary#find_best_entry_for_reading_time returns the entry if it has got the exact amount of words they can read in the given time
+diary = Diary.new
+diary_entry1 = DiaryEntry.new("title1","one " * 100)
+diary_entry2 = DiaryEntry.new("title2","two " * 200)
+diary.add(diary_entry1)
+diary.add(diary_entry2)
+expect(diary.find_best_entry_for_reading_time(100,2)).to eq(diary_entry2)
+
+# 5
+# Diary#find_best_entry_for_reading_time returns the entry if it has got less than the amount of words they can read in the given time but is the closest
+diary = Diary.new
+diary_entry1 = DiaryEntry.new("title1","one " * 100)
+diary_entry2 = DiaryEntry.new("title2","two " * 200)
+diary.add(diary_entry1)
+diary.add(diary_entry2)
+expect(diary.find_best_entry_for_reading_time(99,2)).to eq(diary_entry1)
+
+# 6
+# Diary#check_diary_for_phone_numbers returns all of the entries that contain numbers found in a certain contacts list
+my_diary = Diary.new
+entry1 = DiaryEntry.new("title1", "random words 01234567891 more random words")
+entry2 = DiaryEntry.new("title2", "no number in this one")
+entry3 = DiaryEntry.new("title2", "random 36473920463 words more random")
+diary.add(entry1)
+diary.add(entry2)
+diary.add(entry3)
+iphone_list = Contacts.new
+contact1 = Contact.new('Bob', 01234567891)
+contact2 = Contact.new('Jill', 36473920463)
+contact3 = Contact.new('Fred', 29462950321)
+iphone_list.add(contact1)
+iphone_list.add(contact2)
+iphone_list.add(contact3)
+expected = "entry1 - Bob - 01234567891, entry3 - Jill - 36473920463"
+expect(my_diary.check_diary_for_phone_numbers).to eq(expected)
 ```
  
 ## 4. Create Examples as Unit Tests
