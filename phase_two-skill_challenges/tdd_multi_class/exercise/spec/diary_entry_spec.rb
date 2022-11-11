@@ -1,4 +1,5 @@
-# diary_entry_spec
+# diary_entry_spec:
+
 # when initialized it creates an instance of diary entry with title and contents
 # when title is called on the instance it returns the title when title is called on contents it returns the contents
 # count words splits entry contents into array of words and counts them
@@ -29,16 +30,26 @@ describe DiaryEntry do
       expect(diary_entry.contents).to eq 'contents'
     end
   end
-  context "when calling methods on instances of DiaryEntry" do
-    it "#count_words should return the number of words of the contents" do
+  describe "#count_words" do
+    it "it should return 3 when content of diary entry is 3 words" do
       diary_entry = DiaryEntry.new('title','one two three')
       expect(diary_entry.count_words).to eq 3
     end
-    it "#reading_time takes wpm and returns reading time of this instance of diary entry" do
+    it "it should return 500 when content of diary entry is 500 words" do
+      diary_entry = DiaryEntry.new('title','one ' * 500)
+      expect(diary_entry.count_words).to eq 500
+    end
+  end
+  describe "#reading_time" do 
+    it "it returns 1 (minute) when given a 150 word entry and a reading speed of 200wpm" do
       diary_entry = DiaryEntry.new('title','one ' * 150)
       expect(diary_entry.reading_time_int(200)).to eq 1
     end
-    it "#reading_time raises error if wpm <= 0" do
+    it "it returns 5 (minute) when given a 450 word entry and a reading speed of 100wpm" do
+      diary_entry = DiaryEntry.new('title','one ' * 450)
+      expect(diary_entry.reading_time_int(100)).to eq 5
+    end
+    it "it raises error if wpm <= 0" do
       diary_entry = DiaryEntry.new('title','one ' * 150)
       expect{ diary_entry.reading_time_int(-4) }.to raise_error "wpm must be positive"
     end

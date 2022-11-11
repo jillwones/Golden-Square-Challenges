@@ -17,7 +17,7 @@ class DiaryEntry
     (count_words / wpm.to_f).ceil
   end
 
-  def reading_time_float(wpm)
+  def reading_time_float(wpm) # this method is called in diary class
     (count_words / wpm.to_f)
   end
 
