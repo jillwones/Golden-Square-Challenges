@@ -106,7 +106,6 @@ class Todo
 end
 
 class Contacts
-
   attr_reader :contacts
   
   def initialize
