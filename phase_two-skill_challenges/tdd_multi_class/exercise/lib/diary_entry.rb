@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DiaryEntry
   attr_reader(:title, :contents)
 
@@ -17,22 +19,24 @@ class DiaryEntry
     (count_words / wpm.to_f).ceil
   end
 
-  def reading_time_float(wpm) # this method is called in diary class
+  # this method is called in diary class
+  def reading_time_float(wpm)
     (count_words / wpm.to_f)
   end
 
   def reading_chunk(wpm, minutes)
     raise 'wpm must be positive' unless wpm.positive?
     raise 'minutes must be positive' unless minutes.positive?
-    total_words = wpm * minutes 
+
+    total_words = wpm * minutes
     start_from = @last_read_word
     end_at = @last_read_word + total_words
     chunk_array = words[start_from, end_at]
-    if end_at >= words.length
-      @last_read_word = 0 
-    else 
-      @last_read_word = end_at
-    end
+    @last_read_word = if end_at >= words.length
+                        0
+                      else
+                        end_at
+                      end
     chunk_array.join(' ')
   end
 
@@ -41,5 +45,4 @@ class DiaryEntry
   def words
     @contents.split(' ')
   end
-  
 end
