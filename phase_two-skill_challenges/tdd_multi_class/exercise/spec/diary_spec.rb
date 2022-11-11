@@ -17,6 +17,10 @@ describe Diary do
       diary = Diary.new
       expect(diary.reading_time(100)).to eq 0
     end
+    it 'returns 0 counted words' do 
+      diary = Diary.new 
+      expect(diary.count_words).to eq(0)
+    end
     it "throws an error when #find_best_entry_for_reading_time is called on an empty diary" do
       diary = Diary.new
       expect{ diary.find_best_entry_for_reading_time(100,5) }.to raise_error "Diary empty"
