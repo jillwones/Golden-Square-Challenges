@@ -201,10 +201,71 @@ expect(my_diary.check_diary_for_phone_numbers).to eq(expected)
  
 ## 4. Create Examples as Unit Tests
  
-Create examples, where appropriate, of the behaviour of each relevant class at
-a more granular level of detail.
- 
-Encode one of these as a test and move to step 5.
+```ruby
+# TODO UNIT TESTS
+# 1
+# Todo#task returns the todo task
+todo_1 = Todo.new('Walk the dog')
+expect(todo_1.task).to eq('Walk the dog')
+
+# 2
+# Todo initializing raises error if task is not a string
+expect{ Todo.new([123]) }.to raise_error('Task must be a string')
+
+# TODOLIST UNIT TESTS
+# 1
+# TodoList#list_all raises error if no todos in list
+todo_list = TodoList.new
+expect{ todo_list.list_all }.to raise_error('No todos in the list')
+
+# CONTACT UNIT TESTS
+# 1
+# Contact#name returns the name of the contact
+contact_1 = Contact.new('Bob', 01725362718)
+expect(contact_1.name).to eq('Bob')
+
+# 2
+# Contact#number returns the number of the contact
+contact_1 = Contact.new('Bob', 01725362718)
+expect(contact_1.number).to eq(01725362718)
+
+# 3
+# Contact initializing raises error if number is not an 11 digit integer
+expect{ Contact.new('Bob', 'string here') }.to raise_error('Number must be an integer and 11 digits long')
+expect{ Contact.new('Bob', 1234) }.to raise_error('Number must be an integer and 11 digits long')
+
+# CONTACTS UNIT TESTS
+# 1
+# Contacts#contacts returns an empty array when no contacts added
+iphone_list = Contacts.new
+expect(iphone_list.contacts).to eq([])
+
+# DIARYENTRY UNIT TESTS
+# 1
+# DiaryEntry#word_count returns the number of words in the entry as an integer
+entry_1 = DiaryEntry.new('Title', 'one ' * 55)
+expect(entry_1.word_count).to eq(55)
+
+# 2
+# DiaryEntry#reading_time raises error if wpm is <= 1
+entry_1 = DiaryEntry.new('title','one ' * 150)
+expect{ entry_1.reading_time(-4) }.to raise_error("wpm must be positive")
+
+# 3
+# DiaryEntry#reading_time returns 1 (minute) when given a 180 word entry and a reading speed of 200wpm" 
+entry_1 = DiaryEntry.new('title','one ' * 180)
+expect(entry_1.reading_time(200)).to eq(1)
+
+# 4
+# DiaryEntry#reading_time returns 5 (minutes) when given a 430 word entry and a reading speed of 100wpm"
+diary_entry = DiaryEntry.new('title','one ' * 430)
+expect(diary_entry.reading_time_int(100)).to eq(5)
+
+# DIARY UNIT TESTS
+# 1
+
+
+```
  
 ## 5. Implement the Behaviour
  
