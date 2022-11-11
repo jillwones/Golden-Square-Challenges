@@ -263,8 +263,20 @@ expect(diary_entry.reading_time_int(100)).to eq(5)
 
 # DIARY UNIT TESTS
 # 1
+# Diary#all raises error if called on an empty diary
+my_diary = Diary.new
+expect{ my_diary.all }.to raise_error('No entries to show')
 
+# 2
+# Diary#find_best_entry_for_reading_time raises errors if minutes <= 0, wpm <= 0
+my_diary = Diary.new
+expect{ my_diary.find_best_entry_for_reading_time(200, 0).to raise_error('You must have 1 or more minutes to read')
+expect{ my_diary.find_best_entry_for_reading_time(-100, 12).to raise_error('WPM must be positive')
 
+# 3 
+# Diary#find_best_entry_for_reading_time raises errors if diary is empty
+my_diary = Diary.new
+expect{ my_diary.find_best_entry_for_reading_time(200, 10) }.to raise_error('Diary empty')
 ```
  
 ## 5. Implement the Behaviour
