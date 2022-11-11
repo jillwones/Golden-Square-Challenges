@@ -1,7 +1,12 @@
+# frozen_string_literal: true
+
 class Todo
   attr_reader :task
-  def initialize(task) # task is a string
-    raise 'task must be a string' if !task.is_a? String
+
+  # task is a string
+  def initialize(task)
+    raise 'task must be a string' unless task.is_a? String
+
     @task = task
     @finished = false
   end
@@ -10,6 +15,7 @@ class Todo
     # Marks the todo as done
     # Returns nothing
     raise 'Task already completed' if @finished
+
     @finished = true
   end
 
