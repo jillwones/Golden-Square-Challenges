@@ -8,5 +8,6 @@ class Contacts
   def add(contact)
     # parameter is an instance of Contact
     # adds to the @contacts array
+    @contacts << contact
   end
 end
