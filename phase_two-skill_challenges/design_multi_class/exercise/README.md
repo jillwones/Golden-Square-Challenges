@@ -180,6 +180,14 @@ diary.add(diary_entry2)
 expect(diary.find_best_entry_for_reading_time(99,2)).to eq(diary_entry1)
 
 # 6
+# Diary#find_best_entry_for_reading_time raises error if 1 entry present but not readable in amount of time 
+diary = Diary.new
+diary_entry1 = DiaryEntry.new("title1","one " * 1000)
+diary.add(diary_entry1)
+diary.add(diary_entry2)
+expect{ diary.find_best_entry_for_reading_time(200,1) }.to raise_error('All entries are too long.')
+
+# 7
 # Diary#check_diary_for_phone_numbers returns all of the entries that contain numbers found in a certain contacts list
 my_diary = Diary.new
 entry1 = DiaryEntry.new("title1", "random words 46372364831 more random words")
