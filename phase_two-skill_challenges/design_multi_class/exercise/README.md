@@ -92,6 +92,13 @@ class TodoList
     # adds the todo to @todo_list
     # returns nothing
   end
+
+  def mark_done(todo)
+    # todo is an instance of Todo
+    # removes the todo from @todo_list
+    # raises error if that todo is not in the list
+    # returns nothing
+  end
   
   def list_all
     # will puts todo's like: ["Todos:", "* Walk the dog", "* Do homework"].join("\n") + "\n"
@@ -142,6 +149,23 @@ todo_list.add(todo_1)
 todo_list.add(todo_2)
 expected = ["All TODOS:", "* Walk the dog", "* Clean house"].join("\n") + "\n"
 expect{ todo_list.list_all }.to output(expected).to_stdout
+
+# 2
+# TodoList#mark_done removes todo from array
+todo_list = TodoList.new
+todo_1 = Todo.new('Walk the dog')
+todo_2 = Todo.new('Clean house')
+todo_list.add(todo_1)
+todo_list.add(todo_2)
+todo_list.mark_done(todo_1)
+expected = ["All TODOS:", "* Clean house"].join("\n") + "\n"
+expect{ todo_list.list_all }.to output(expected).to_stdout
+
+# 3
+# TodoList#mark_done raises error if todo is not in @todo_list
+todo_list = TodoList.new
+todo_1 = Todo.new('Walk the dog')
+expect{ todo_list.mark_done(todo_1) }.to raise_error('Todo not in todolist')
 
 # 2 
 # Contacts#contacts returns an array of contacts (maybe I shouldnt have called everything contacts haha)
