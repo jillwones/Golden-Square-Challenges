@@ -227,8 +227,8 @@ contact3 = Contact.new('Fred', 29462950321)
 iphone_list.add(contact1)
 iphone_list.add(contact2)
 iphone_list.add(contact3)
-expected = "title1 - Bob - 01234567891, title3 - Jill - 36473920463"
-expect(my_diary.check_diary_for_phone_numbers).to eq(expected)
+expected = "title1 - Bob - 46372364831, title3 - Jill - 36473920463"
+expect(my_diary.check_diary_for_phone_numbers(iphone_list)).to eq(expected)
 ```
  
 ## 4. Create Examples as Unit Tests
