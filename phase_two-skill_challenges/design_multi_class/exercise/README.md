@@ -55,10 +55,10 @@ class Diary
   def check_diary_for_phone_numbers(contacts)
     # parameter is an instance of contacts and should be an array of contacts
     # will show all of the contacts + their numbers based on the phone numbers found in the diary entries
-    # will set all_contacts = []
+    # will set answer = []
     # loop through the @diary and loop through the contacts within, then check if @diary array include? the contact.number.to_s
-    # if true then add "#{entry.title} - #{contact.name} - #{contact.number}" to the all_contacts array
-    # then returns all_contacts.join(', '), if that is an empty string then return 'no contacts found within diary'
+    # if true then add "#{entry.title} - #{contact.name} - #{contact.number}" to the answer array
+    # then returns answer.join(', '), if that is an empty string then return 'no contacts found within diary'
   end
 end
 
@@ -72,6 +72,7 @@ class DiaryEntry
   def word_count
     # calculates the num of words in the entry
     # returns num of words as an integer
+    # i suppose can be a private method
   end
   
   def reading_time(wpm)
