@@ -181,20 +181,20 @@ expect(diary.find_best_entry_for_reading_time(99,2)).to eq(diary_entry1)
 # 6
 # Diary#check_diary_for_phone_numbers returns all of the entries that contain numbers found in a certain contacts list
 my_diary = Diary.new
-entry1 = DiaryEntry.new("title1", "random words 01234567891 more random words")
+entry1 = DiaryEntry.new("title1", "random words 46372364831 more random words")
 entry2 = DiaryEntry.new("title2", "no number in this one")
-entry3 = DiaryEntry.new("title2", "random 36473920463 words more random")
-diary.add(entry1)
-diary.add(entry2)
-diary.add(entry3)
+entry3 = DiaryEntry.new("title3", "random 36473920463 words more random")
+my_diary.add(entry1)
+my_diary.add(entry2)
+my_diary.add(entry3)
 iphone_list = Contacts.new
-contact1 = Contact.new('Bob', 01234567891)
+contact1 = Contact.new('Bob', 46372364831)
 contact2 = Contact.new('Jill', 36473920463)
 contact3 = Contact.new('Fred', 29462950321)
 iphone_list.add(contact1)
 iphone_list.add(contact2)
 iphone_list.add(contact3)
-expected = "entry1 - Bob - 01234567891, entry3 - Jill - 36473920463"
+expected = "title1 - Bob - 01234567891, title3 - Jill - 36473920463"
 expect(my_diary.check_diary_for_phone_numbers).to eq(expected)
 ```
  
