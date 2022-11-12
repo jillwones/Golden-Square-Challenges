@@ -1,0 +1,6 @@
+require 'Contact'
+require 'ContactsList'
+require 'Diary'
+require 'DiaryEntry'
+require 'Todo'
+require 'TodoList'
