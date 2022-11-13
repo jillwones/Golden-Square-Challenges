@@ -1,4 +1,4 @@
-# Exercise Method Design Recipe - Class Design
+# Exercise Class Design Recipe
 
 ## 1. Describe the Problem
 
