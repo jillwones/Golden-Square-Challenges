@@ -11,7 +11,7 @@ RSpec.describe "doubles" do
 
   it "sets up a double with methods" do
     # Set up your doubles here
-    fake_object = double(:fake_object, speak: 'Meow', count_ears: 2, count_legs: 4)
+    fake_object = double(:cat, speak: 'Meow', count_ears: 2, count_legs: 4)
 
     # Don't edit below
     expect(fake_object.speak).to eq "Meow"
@@ -21,7 +21,7 @@ RSpec.describe "doubles" do
 
   it "sets up a double with methods that take arguments" do
     # Set up your doubles here
-    fake_object = double(:fake_object)
+    fake_object = double(:cat)
     allow(fake_object).to receive(:speak).with('Jess').and_return('Meow, Jess')
 
     # Don't edit below
@@ -43,10 +43,10 @@ RSpec.describe "doubles" do
   end
 
   it "creates a double for a specific case" do
-    fake_diary = double :diary, add: nil
+    fake_diary  = double :diary, add: nil
     # Set up this double to pass the tests below
     
-    expect(fake_diary).to receive(:count_entries).and_return(2)
+    allow(fake_diary).to receive(:count_entries).and_return(2)
 
     # Don't edit below
     fake_diary.add(double :diary_entry)
