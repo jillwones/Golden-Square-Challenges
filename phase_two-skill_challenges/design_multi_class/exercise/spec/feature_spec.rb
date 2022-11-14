@@ -72,21 +72,38 @@ describe Diary do
       diary_entry2 = DiaryEntry.new('title2', 'two ' * 200)
       diary.add(diary_entry1)
       diary.add(diary_entry2)
-      expect(diary.find_best_entry_for_reading_time(100, 2)).to eq(diary_entry2)
+      expect(diary.find_best_entry_for_reading_time(100, 2)).to eq([diary_entry2])
     end
-    it 'eturns the entry if it has got less than the amount of words they can read in the given time but is the closest' do
+    it 'returns the entry if it has got less than the amount of words they can read in the given time but is the closest' do
       diary = Diary.new
       diary_entry1 = DiaryEntry.new('title1', 'one ' * 100)
       diary_entry2 = DiaryEntry.new('title2', 'two ' * 200)
       diary.add(diary_entry1)
       diary.add(diary_entry2)
-      expect(diary.find_best_entry_for_reading_time(99, 2)).to eq(diary_entry1)
+      expect(diary.find_best_entry_for_reading_time(99, 2)).to eq([diary_entry1])
     end
     it 'fails if entries present not readable with given wpm and minutes' do
       diary = Diary.new
       diary_entry1 = DiaryEntry.new('title1', 'one ' * 1000)
       diary.add(diary_entry1)
       expect { diary.find_best_entry_for_reading_time(200, 1) }.to raise_error('All entries are too long.')
+    end
+    it 'returns 2 entries if they both have the exact same reading time and its the max reading time' do
+      diary = Diary.new
+      diary_entry1 = DiaryEntry.new('title1', 'one ' * 200)
+      diary_entry2 = DiaryEntry.new('title2', 'two ' * 200)
+      diary.add(diary_entry1)
+      diary.add(diary_entry2)
+      expect(diary.find_best_entry_for_reading_time(200, 1)).to eq([diary_entry2, diary_entry1])
+    end
+    it 'returns 2 entries if they both have the exact same reading time and it isnt the max but is the closest to' do
+      diary = Diary.new
+      diary_entry1 = DiaryEntry.new('title1', 'one ' * 100)
+      diary_entry2 = DiaryEntry.new('title2', 'two ' * 100)
+      diary_entry3 = DiaryEntry.new('title3', 'three ' * 50)
+      diary.add(diary_entry1)
+      diary.add(diary_entry2)
+      expect(diary.find_best_entry_for_reading_time(200, 1)).to eq([diary_entry2, diary_entry1])
     end
   end
 

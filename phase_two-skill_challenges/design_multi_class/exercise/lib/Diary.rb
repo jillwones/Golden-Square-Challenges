@@ -28,7 +28,15 @@ class Diary
 
     raise 'All entries are too long.' if sorted_entry_reading_times.empty?
 
-    sorted_entry_reading_times[-1][0]
+    # this bit below will basically return multiple entries if they have the exact same reading time
+    answer = []
+    index_of_sub_array = -1
+    while sorted_entry_reading_times[index_of_sub_array][1] == sorted_entry_reading_times[-1][1]
+      answer << sorted_entry_reading_times[index_of_sub_array][0]
+      index_of_sub_array -= 1
+      break if sorted_entry_reading_times[index_of_sub_array].nil?
+    end
+    answer
   end
 
   def check_diary_for_phone_numbers(contacts)
