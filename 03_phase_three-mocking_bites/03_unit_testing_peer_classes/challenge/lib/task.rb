@@ -1,18 +1,18 @@
+# frozen_string_literal: true
+
 class Task
   def initialize(title)
     @title = title
     @complete = false
   end
 
-  def title
-    return @title
-  end
+  attr_reader :title
 
   def mark_complete
     @complete = true
   end
 
   def complete?
-    return @complete
+    @complete
   end
 end

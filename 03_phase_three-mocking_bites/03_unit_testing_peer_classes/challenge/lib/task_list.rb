@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TaskList
   def initialize
     @tasks = []
@@ -8,13 +10,12 @@ class TaskList
   end
 
   def all
-    return @tasks
+    @tasks
   end
 
   def all_complete?
     return false if @tasks.empty?
-    return @tasks.all? do |task|
-      task.complete?
-    end
+
+    @tasks.all?(&:complete?)
   end
 end

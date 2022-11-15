@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class TaskFormatter
-  def initialize(task) 
+  def initialize(task)
     @task = task
   end
 
