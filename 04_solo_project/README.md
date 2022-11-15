@@ -26,4 +26,5 @@ Fair warning: if you push your Twilio API Key to a public Github repository,
 anyone will be able to see and use it. What are the security implications of
 that? How will you keep that information out of your repository?
 
-A: I plan on storing the private key in twilio.env and adding twilio.env to the .gitignore file - I should be able to access the key in the application files with something like private_key = ENV['TWILIO_KEY'] here is a good [article](https://medium.com/coffee-and-codes/the-simplest-and-powerful-ruby-gem-dotenv-74d64cbc5d5d) on the gem dotenv
+A: I plan on storing the private key in twilio.env and adding twilio.env to the .gitignore file - I should be able to access the key in the application files with something like private_key = ENV['TWILIO_KEY']     
+Here is a good [article](https://medium.com/coffee-and-codes/the-simplest-and-powerful-ruby-gem-dotenv-74d64cbc5d5d) on the gem dotenv
