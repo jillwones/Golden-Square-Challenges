@@ -11,7 +11,7 @@ class Text
   def send_text(number)
     delivery_time = (Time.now + 1200).strftime("%I:%M %p")
     message = @client.messages.create(
-                             body: "Your order will be with you at #{delivery_time}",
+                             body: "Thank you! Your order was placed and will be delivered before #{delivery_time}",
                              from: '+13022483728',
                              to: "+#{number}"
                            )
