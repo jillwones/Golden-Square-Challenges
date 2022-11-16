@@ -1,6 +1,6 @@
 class Menu 
   attr_reader :menu
-  def initialize(terminal)
+  def initialize(terminal=Kernel)
     @menu = [
       { name: 'burger', price: 4.50, quantity: 10 },
       { name: 'hot dog', price: 3.00, quantity: 10 },
