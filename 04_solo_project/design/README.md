@@ -128,7 +128,7 @@ end
 
 # roughly how to use
 
-burger_restaurant = Menu.new
+burger_restaurant = Menu.new(Kernel)
 burger_restaurant.list # shows menu items available
 my_order = Order.new
 my_order.add('burger', burger_restaurant)
@@ -181,7 +181,7 @@ burger_restaurant = Menu.new
 my_order = Order.new
 my_order.add('burger', burger_restaurant)
 my_order.add('chips', burger_restaurant)
-finish_my_order = FinishMyOrder.new(my_order)
+finish_my_order = FinishMyOrder.new(my_order, Kernel)
 expected = ['Ordered items:', 'burger - £4.50', 'chips - £2.00', 'Grand Total => £6.50'].join("\n") + "\n"
 expect(finish_my_order.receipt).to output(expected).to_stdout
 
@@ -243,8 +243,8 @@ expect(menu).to receive(:menu_includes_item).and_return(true)
 expect(menu).to receive(:method menu_includes_item).and_return(true)
 expect(menu).to receive(:price_of_item).and_return(2)
 
-diary.add('burger', menu)
-diary.add('chips', menu)
+my_order.add('burger', menu)
+my_order.add('chips', menu)
 expect(my_order.order).to eq(['burger', 2],['chips', 2])
 
 # 3 
@@ -253,7 +253,7 @@ my_order = Order.new
 menu = double(:menu)
 expect(menu).to receive(:menu_includes_item).and_return(false)
 
-expect{ diary.add('random', menu) }.to raise_error('Item not on the menu')
+expect{ my_order.add('random', menu) }.to raise_error('Item not on the menu')
 
 # 4 
 # Order#add raises error when adding something that is on the menu but out of stock
@@ -262,7 +262,7 @@ menu = double(:menu)
 expect(menu).to receive(:menu_includes_item).and_return(true)
 expect(menu).to receive(:method menu_includes_item).and_return(false)
 
-expect{ diary.add('chips', menu) }.to raise_error('Item not in stock')
+expect{ my_order.add('chips', menu) }.to raise_error('Item not in stock')
 
 # 5
 # Order#add will reduce the quantity of the stock by 1
@@ -274,12 +274,12 @@ burger_restaurant = double(:menu, menu: [
       { name: 'chips', price: 2.00, quantity: 1 }
     ])
 my_order = Order.new
-original_quantity = burger_restaurant.menu.each do |menu_item|
-                      return menu_item[:quantity] if menu_item[:name] == 'burger'
-                    end
-# expect original quantity to be its original quantity
+
+burger_listing = burger_restaurant.menu[0]
+
+expect(burger_listing).to eq({:name=>"burger", :price=>4.5, :quantity=>10})
 my_order.add('burger', burger_restaurant)
-# expect original quantity to be original - 1
+expect(burger_listing).to eq({:name=>"burger", :price=>4.5, :quantity=>9})
 
 # FINISHMYORDER
 # 1
