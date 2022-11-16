@@ -127,7 +127,7 @@ end
 # roughly how to use
 
 burger_restaurant = Menu.new
-burger_menu.list # shows menu items available
+burger_restaurant.list # shows menu items available
 my_order = Order.new
 my_order.add('burger', burger_restaurant)
 my_order.add('chips', burger_restaurant)
