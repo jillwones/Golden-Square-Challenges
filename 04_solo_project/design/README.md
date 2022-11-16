@@ -30,10 +30,10 @@ class Menu
   attr_reader :menu # testing terminal io here
   def initialize(terminal)
     # @menu will be an array of hashes, each hash will have the name of the item, the price and quantity
-    # @terminal will be there so I can test what the method list puts to the terminal
+    # @terminal will be there so I can test what the method list_available puts to the terminal
   end 
 
-  def list 
+  def list_available 
     # puts a the list of available menu items in a nice format
     # takes no args
     # will call on private method available_items that will return the @menu     
@@ -99,6 +99,8 @@ class FinishMyOrder # peer class here
     # @order = order
     # maybe have @order_array = order.order
     # @terminal = terminal
+    
+    # raise error 'Nothing ordered' if @order_array.empty?
   end
 
   def print_receipt
@@ -140,14 +142,116 @@ finish_my_order.send_text(+441234512345) # should ultimately send a text to the 
 ## 3. Create Examples as Integration Tests
  
 ```ruby
+# 1
+# can add items to instance of Order
+burger_restaurant = Menu.new
+my_order = Order.new
+my_order.add('burger', burger_restaurant)
+my_order.add('chips', burger_restaurant)
+expect(my_order.order).to eq(['burger', 4.50],['chips', 2.00])
 
+# 2
+# adding an item that is not on the menu raises error
+burger_restaurant = Menu.new
+my_order = Order.new
+expect{ my_order.add('random', burger_restaurant) }.to raise_error('Item not on the menu')
+
+# 2
+# adding an item that is not in stock raises error
+# there is only 1 set of chips in stock so I expect adding chips to be fine and adding the second chips to raise the error
+burger_restaurant = Menu.new
+my_order = Order.new
+expect{ my_order.add('chips', burger_restaurant) }.not_to raise_error
+expect{ my_order.add('chips', burger_restaurant) }.to raise_error('Item out of stock')
+
+# 3
+# receipt shows all the prices of the ordered items and the grand total
+burger_restaurant = Menu.new
+my_order = Order.new
+my_order.add('burger', burger_restaurant)
+my_order.add('chips', burger_restaurant)
+finish_my_order = FinishMyOrder.new(my_order)
+expected = ['Ordered items:', 'burger - £4.50', 'chips - £2.00', 'Grand Total => £6.50'].join("\n") + "\n"
+expect(finish_my_order.receipt).to output(expected).to_stdout
+
+# 4
+# sends a text after ordered
+
+# not sure how to test TWILIO yet - may build TWILIO section free running style, and then come back and look into how to test - not best practices but I'd quite like to build it out
+
+# 5
+# raise error if finalising order but nothing ordered
+my_order = Order.new
+expect{ FinishMyOrder.new(my_order) }.to raise_error('Nothing ordered')
 ```
  
 ## 4. Create Examples as Unit Tests
  
 ```ruby
+# MENU
+# 1
+# creates an instance of Menu
+burger_restaurant = Menu.new
+expect(burger_restaurant).to be_an_instance_of(Menu)
+
+# 2
+# menu.menu returns the array of hashes
+burger_restaurant = Menu.new
+expected =  [
+      { name: 'burger', price: 4.50, quantity: 10 },
+      { name: 'hot dog', price: 3.00, quantity: 10 },
+      { name: 'CocaCola', price: 1.00, quantity: 5 },
+      { name: 'chips', price: 2.00, quantity: 1 }
+    ]
+expect(burger_restaurant.menu).to eq(expected)
+
+# 3
+# menu.list returns just available menu items (quantity > 0)
+fake_terminal = double(:terminal)
+expect(fake_terminal).to receive(:puts).with("Items in stock:")
+allow(fake_terminal).to receive(:puts).with("burger - £4.50")
+allow(fake_terminal).to receive(:puts).with("hot dog - £3.00")
+allow(fake_terminal).to receive(:puts).with("CocaCola - £1.00")
+allow(fake_terminal).to receive(:puts).with("chips - £2.00")
 
 
+burger_restaurant = Menu.new
+burger_restaurant.list_available
+
+# ORDER
+# 1
+# creates an instance of order
+my_order = Order.new
+expect(my_order).to be_an_instance_of(Order)
+
+# 2
+# Order#add will add an item to your order array
+my_order = Order.new
+menu = double(:menu)
+expect(menu).to receive(:menu_includes_item).and_return(true)
+expect(menu).to receive(:method menu_includes_item).and_return(true)
+expect(menu).to receive(:price_of_item).and_return(2)
+
+diary.add('burger', menu)
+diary.add('chips', menu)
+expect(my_order.order).to eq(['burger', 2],['chips', 2])
+
+# 3 
+# Order#add raises error when adding something that is not on the menu
+my_order = Order.new
+menu = double(:menu)
+expect(menu).to receive(:menu_includes_item).and_return(false)
+
+expect{ diary.add('random', menu) }.to raise_error('Item not on the menu')
+
+# 4 
+# Order#add raises error when adding something that is on the menu but out of stock
+my_order = Order.new
+menu = double(:menu)
+expect(menu).to receive(:menu_includes_item).and_return(true)
+expect(menu).to receive(:method menu_includes_item).and_return(false)
+
+expect{ diary.add('chips', menu) }.to raise_error('Item not in stock')
 ```
  
 ## 5. Implement the Behaviour
