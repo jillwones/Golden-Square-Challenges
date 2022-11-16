@@ -165,6 +165,17 @@ expect{ my_order.add('chips', burger_restaurant) }.not_to raise_error
 expect{ my_order.add('chips', burger_restaurant) }.to raise_error('Item out of stock')
 
 # 3
+# adding an item to the order reduces its quantity by 1
+burger_restaurant = Menu.new
+my_order = Order.new
+original_quantity = burger_restaurant.menu.each do |menu_item|
+                      return menu_item[:quantity] if menu_item[:name] == 'burger'
+                    end
+# expect original quantity to be its original quantity
+my_order.add('burger', burger_restaurant)
+# expect original quantity to be original - 1
+
+# 3
 # receipt shows all the prices of the ordered items and the grand total
 burger_restaurant = Menu.new
 my_order = Order.new
@@ -252,6 +263,44 @@ expect(menu).to receive(:menu_includes_item).and_return(true)
 expect(menu).to receive(:method menu_includes_item).and_return(false)
 
 expect{ diary.add('chips', menu) }.to raise_error('Item not in stock')
+
+# 5
+# Order#add will reduce the quantity of the stock by 1
+# adding an item to the order reduces its quantity by 1
+burger_restaurant = double(:menu, menu: [
+      { name: 'burger', price: 4.50, quantity: 10 },
+      { name: 'hot dog', price: 3.00, quantity: 10 },
+      { name: 'CocaCola', price: 1.00, quantity: 5 },
+      { name: 'chips', price: 2.00, quantity: 1 }
+    ])
+my_order = Order.new
+original_quantity = burger_restaurant.menu.each do |menu_item|
+                      return menu_item[:quantity] if menu_item[:name] == 'burger'
+                    end
+# expect original quantity to be its original quantity
+my_order.add('burger', burger_restaurant)
+# expect original quantity to be original - 1
+
+# FINISHMYORDER
+# 1
+# takes an instance of order when initialising
+fake_order = double(:order)
+finish_my_order = FinishMyOrder.new(fake_order, Kernel)
+expect(fake_my_order).to be_an_instance_of(FinishMyOrder)
+
+# 2
+# FinishMyOrder#receipt prints the receipt for the order
+fake_order = double(:order)
+terminal = doubke(:terminal)
+finish_my_order = (fake_order, terminal)
+expected = ['Ordered items:', 'burger - £4.50', 'chips - £2.00', 'Grand Total => £6.50'].join("\n") + "\n"
+allow(terminal).to receive(:puts).and_return(expected)
+
+# 3
+# FinishMyOrder#send_text send the confirmation text
+
+# TODO
+
 ```
  
 ## 5. Implement the Behaviour
