@@ -128,8 +128,8 @@ end
 
 # roughly how to use
 
-burger_restaurant = Menu.new(Kernel)
-burger_restaurant.list # shows menu items available
+burger_restaurant = Menu.new
+burger_restaurant.list_available # shows menu items available
 my_order = Order.new
 my_order.add('burger', burger_restaurant)
 my_order.add('chips', burger_restaurant)

@@ -10,5 +10,5 @@ my_order = Order.new
 my_order.add('burger', burger_restaurant)
 my_order.add('chips', burger_restaurant)
 finish_my_order = FinishMyOrder.new(my_order)
-finish_my_order.receipt # should puts an itemised receipt with grand total
-finish_my_order.send_text
+finish_my_order.receipt # puts an itemised receipt with grand total in the terminal
+finish_my_order.send_text # sends a text to the default number (mine) with a confirmation, if I ordered at 7:05pm the text will say 'You order will be with you at 7:25 PM'
