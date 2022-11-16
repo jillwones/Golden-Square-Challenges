@@ -2,7 +2,7 @@ require 'twilio-ruby'
 require 'dotenv/load'
 
 class FinishMyOrder
-  def initialize(order, terminal=Kernel)
+  def initialize(order, terminal = Kernel)
     @order = order
     @order_array = order.order
     @terminal = terminal
@@ -16,7 +16,7 @@ class FinishMyOrder
     @terminal.puts "Grand Total: #{format_price(total)}"
   end
 
-  def send_text(number='+447379766090')
+  def send_text(number = '+447379766090')
     @text = Text.new
     @text.send_text(number)
   end
@@ -24,10 +24,10 @@ class FinishMyOrder
   private
 
   def format_price(price)
-    "£#{sprintf "%.2f", price}"
+    "£#{format '%.2f', price}"
   end
 
-  def total 
+  def total
     @order_array.sum { |_name, price| price }
   end
 end

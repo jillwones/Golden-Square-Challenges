@@ -1,8 +1,7 @@
-require_relative './FinishMyOrder.rb'
-require_relative './Menu.rb'
-require_relative './Order.rb'
-require_relative './Text.rb'
-
+require_relative './FinishMyOrder'
+require_relative './Menu'
+require_relative './Order'
+require_relative './Text'
 
 burger_restaurant = Menu.new
 burger_restaurant.list_available # shows menu items available

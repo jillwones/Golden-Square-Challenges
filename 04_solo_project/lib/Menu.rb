@@ -1,6 +1,7 @@
-class Menu 
+class Menu
   attr_reader :menu
-  def initialize(terminal=Kernel)
+
+  def initialize(terminal = Kernel)
     @menu = [
       { name: 'burger', price: 4.50, quantity: 10 },
       { name: 'hot dog', price: 3.00, quantity: 10 },
@@ -21,13 +22,13 @@ class Menu
     end
   end
 
-  private 
+  private
 
   def available_items
     @menu.select { |item| item[:quantity] > 0 }
   end
 
   def format_price(price)
-    sprintf "%.2f", price
+    format '%.2f', price
   end
 end
