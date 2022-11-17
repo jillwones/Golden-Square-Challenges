@@ -9,8 +9,8 @@ class FinishMyOrder
 
   def receipt
     @terminal.puts 'What you ordered:'
-    @order_array.each do |name, price|
-      @terminal.puts "#{name} - #{format_price(price)}"
+    @order_array.each do |name, price, num_of_items|
+      @terminal.puts "#{num_of_items}x #{name} - #{format_price(price)}"
     end
     @terminal.puts "Grand Total: #{format_price(total)}"
   end

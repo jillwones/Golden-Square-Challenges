@@ -17,7 +17,7 @@ describe 'integration' do
       it 'putses the available items' do 
         burger_restaurant = Menu.new
         my_order = Order.new(burger_restaurant)
-        my_order.add('chips')
+        my_order.add('chips', 1)
         expected = ['Items in stock:', '1. burger - £4.50', '2. hot dog - £3.00', '3. CocaCola - £1.00'].join("\n") + "\n"
         expect{ burger_restaurant.list_available }.to output(expected).to_stdout
       end
@@ -39,7 +39,7 @@ describe 'integration' do
       it 'returns true if item is out of stock' do 
         burger_restaurant = Menu.new 
         my_order = Order.new(burger_restaurant)
-        my_order.add('chips')
+        my_order.add('chips', 1)
         expect( burger_restaurant.item_out_of_stock('chips') ).to eq(true)
       end
 
@@ -58,12 +58,17 @@ describe 'integration' do
     end
 
     describe '#stock_of_item_decreases' do 
-      it 'decreases the stock number by 1' do 
+      it 'decreases the stock number by 4' do 
         burger_restaurant = Menu.new 
         my_order = Order.new(burger_restaurant)
         expect(burger_restaurant.menu[0][:quantity]).to eq(10)
-        my_order.add('burger')
-        expect(burger_restaurant.menu[0][:quantity]).to eq(9)
+        my_order.add('burger', 4)
+        expect(burger_restaurant.menu[0][:quantity]).to eq(6)
+      end
+      it 'fails if you order more than in stock' do 
+        burger_restaurant = Menu.new 
+        my_order = Order.new(burger_restaurant)
+        expect{ burger_restaurant.stock_of_item_decreases('burger', 100) }.to raise_error('Not enough stock to fulfil order, please choose a lower amount')
       end
     end
   end
@@ -71,15 +76,15 @@ describe 'integration' do
     it 'adds items and their prices to the order' do 
       burger_restaurant = Menu.new
       my_order = Order.new(burger_restaurant)
-      my_order.add('burger')
-      my_order.add('chips')
-      expect(my_order.order).to eq([['burger', 4.50],['chips', 2.00]])
+      my_order.add('burger', 2)
+      my_order.add('chips', 1)
+      expect(my_order.order).to eq([['burger', 9.0, 2],['chips', 2.0, 1]])
     end
 
     it 'fails when ordering an item not on the menu' do 
       burger_restaurant = Menu.new
       my_order = Order.new(burger_restaurant)
-      expect{ my_order.add('random') }.to raise_error('Item not on the menu')
+      expect{ my_order.add('random', 1) }.to raise_error('Item not on the menu')
     end
 
     it 'fails when adding an item that is out of stock' do 
@@ -89,8 +94,8 @@ describe 'integration' do
       # so if you try to add another portion an error is raised
       burger_restaurant = Menu.new
       my_order = Order.new(burger_restaurant)
-      expect{ my_order.add('chips') }.not_to raise_error
-      expect{ my_order.add('chips') }.to raise_error('Item not in stock')
+      expect{ my_order.add('chips', 1) }.not_to raise_error
+      expect{ my_order.add('chips', 1) }.to raise_error('Item not in stock')
     end
   end
 
@@ -98,10 +103,10 @@ describe 'integration' do
     it 'shows the prices of the ordered items and the grand total' do 
       burger_restaurant = Menu.new
       my_order = Order.new(burger_restaurant)
-      my_order.add('burger')
-      my_order.add('chips')
+      my_order.add('burger', 1)
+      my_order.add('chips', 1)
       finish_my_order = FinishMyOrder.new(my_order, Kernel)
-      expected = ['What you ordered:', 'burger - £4.50', 'chips - £2.00', 'Grand Total: £6.50'].join("\n") + "\n"
+      expected = ['What you ordered:', '1x burger - £4.50', '1x chips - £2.00', 'Grand Total: £6.50'].join("\n") + "\n"
       expect{ finish_my_order.receipt }.to output(expected).to_stdout
     end
   end

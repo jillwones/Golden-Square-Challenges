@@ -18,12 +18,12 @@ describe FinishMyOrder do
 
   describe '#receipt' do
     it 'prints the receipt for the order' do
-      fake_order = double(:order, order: [['burger', 4.5], ['chips', 2.0]])
+      fake_order = double(:order, order: [['burger', 13.5, 3], ['chips', 2.0, 1]])
       terminal = double(:terminal)
       expect(terminal).to receive(:puts).with('What you ordered:')
-      expect(terminal).to receive(:puts).with('burger - £4.50')
-      expect(terminal).to receive(:puts).with('chips - £2.00')
-      expect(terminal).to receive(:puts).with('Grand Total: £6.50')
+      expect(terminal).to receive(:puts).with('3x burger - £13.50')
+      expect(terminal).to receive(:puts).with('1x chips - £2.00')
+      expect(terminal).to receive(:puts).with('Grand Total: £15.50')
       finish_my_order = FinishMyOrder.new(fake_order, terminal)
       finish_my_order.receipt
     end

@@ -42,10 +42,14 @@ class Menu
     end
   end
 
-  def stock_of_item_decreases(item)
+  def stock_of_item_decreases(item, number)
     @menu.each do |menu_item|
-      menu_item[:quantity] -= 1 if menu_item[:name] == item
-    end
+      if menu_item[:name] == item
+        raise 'Not enough stock to fulfil order, please choose a lower amount' if number > menu_item[:quantity]
+
+        menu_item[:quantity] -= number
+      end 
+    end   
   end
  
   private

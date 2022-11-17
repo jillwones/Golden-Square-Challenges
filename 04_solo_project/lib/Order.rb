@@ -6,12 +6,12 @@ class Order
     @menu = menu
   end
 
-  def add(item)
+  def add(item, number)
     raise 'Item not on the menu' unless menu_includes_item(item)
     raise 'Item not in stock' if item_out_of_stock(item)
 
-    @order << [item, price_of_item(item)]
-    stock_of_item_decreases(item)
+    @order << [item, price_of_item(item, number), number]
+    stock_of_item_decreases(item, number)
   end
 
   private
@@ -24,11 +24,11 @@ class Order
     @menu.item_out_of_stock(item)
   end
 
-  def price_of_item(item)
-    @menu.price_of_item(item)
+  def price_of_item(item, number)
+    @menu.price_of_item(item) * number
   end
 
-  def stock_of_item_decreases(item)
-    @menu.stock_of_item_decreases(item)
+  def stock_of_item_decreases(item, number)
+    @menu.stock_of_item_decreases(item, number)
   end
 end

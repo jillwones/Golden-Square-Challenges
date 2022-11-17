@@ -80,8 +80,20 @@ describe Menu do
         expect(burger_restaurant.price_of_item('burger') ).to eq(4.5)
       end
     end
+
+    describe '#stock_of_item_decreases' do 
+      it 'decreases the stock number by 4' do 
+        burger_restaurant = Menu.new 
+        my_order = double(:order)
+        expect(burger_restaurant.menu[0][:quantity]).to eq(10)
+        burger_restaurant.stock_of_item_decreases('burger', 4)
+        expect(burger_restaurant.menu[0][:quantity]).to eq(6)
+      end
+      it 'fails if you order more than in stock' do 
+        burger_restaurant = Menu.new 
+        my_order = double(:order)
+        expect{ burger_restaurant.stock_of_item_decreases('burger', 100) }.to raise_error('Not enough stock to fulfil order, please choose a lower amount')
+      end
+    end
   end
-
-  # need to add tests for new methods i added
-
 end
