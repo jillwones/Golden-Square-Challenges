@@ -13,19 +13,17 @@ Items in stock:
 4. chips - £2.00
 =end
 my_order = Order.new(burger_restaurant)
-my_order.add('burger', 4)
-my_order.add('burger', 1)
-my_order.add('CocaCola', 3)
+my_order.add('burger', 6)
+my_order.add('CocaCola', 2)
 my_order.add('chips', 1)
 finish_my_order = FinishMyOrder.new(my_order)
 finish_my_order.receipt 
 =begin 
 What you ordered:
-4x burger - £18.00
-1x burger - £4.50
-3x CocaCola - £3.00
+6x burger - £27.00
+2x CocaCola - £2.00
 1x chips - £2.00
-Grand Total: £27.50
+Grand Total: £31.00
 =end
 finish_my_order.send_text # sends a text to the default number (mine) with a confirmation, if I ordered at 7:05pm the text will say '"Thank you! Your order was placed and will be delivered before 7:25 PM'
 
