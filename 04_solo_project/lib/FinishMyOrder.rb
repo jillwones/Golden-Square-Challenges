@@ -6,6 +6,8 @@ class FinishMyOrder
     @order = order
     @order_array = order.order
     @terminal = terminal
+
+    raise 'Order empty' if @order_array.empty?
   end
 
   def receipt

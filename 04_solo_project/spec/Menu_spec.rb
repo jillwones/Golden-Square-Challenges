@@ -36,10 +36,9 @@ describe Menu do
 
     context 'when some quantities < 0' do
       it 'putses only the available items' do
-        # have to create a double of an order
-        # and add chips to that order
-        # then expect the list_available to not include
-        # chips
+        
+        # To do
+
       end
     end
   end
