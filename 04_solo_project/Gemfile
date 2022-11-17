@@ -12,4 +12,4 @@ gem 'twilio-ruby', '~> 5.73'
 
 gem 'dotenv', '~> 2.8'
 
-gem "coveralls", "~> 0.8.23"
+gem "coveralls", require: false, "~> 0.8.23"
