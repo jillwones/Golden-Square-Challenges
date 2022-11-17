@@ -38,12 +38,50 @@ describe Menu do
 
     context 'when some quantities == 0' do
       it 'putses only the available items' do
-        
-        # To do
-        # make fake menu with some items out of stock
-        # fake terminal will puts only the items in stock
+        fake_terminal = double(:terminal)
+        fake_menu = double(:menu, menu: [{ name: 'burger', price: 4.50, quantity: 5}, { name: 'hot dog', price: 3.00, quantity: 0}, { name: 'chips', price: 2.00, quantity: 0 }])
 
+        expect(fake_menu).to receive(:select).and_return([{ name: 'burger', price: 4.50, quantity: 5 }])
+        expect(fake_terminal).to receive(:puts).with('Items in stock:')
+        expect(fake_terminal).to receive(:puts).with('1. burger - £4.50')
+
+        burger_restaurant = Menu.new(fake_terminal, fake_menu)
+        burger_restaurant.list_available
+      end
+    end
+
+    describe '#includes_item' do
+      it 'returns true when menu includes the item' do 
+        burger_restaurant = double(:menu, includes_item: true)
+        expect( burger_restaurant.includes_item('burger') ).to eq(true)
+      end
+
+      it 'returns false when menu doesnt include the item' do 
+        burger_restaurant = double(:menu, includes_item: false) 
+        expect( burger_restaurant.includes_item('random') ).to eq(false)
+      end
+    end
+
+    describe '#item_out_of_stock' do 
+      it 'returns true if item is out of stock' do 
+        burger_restaurant = double(:menu, item_out_of_stock: true) 
+        expect( burger_restaurant.item_out_of_stock('chips') ).to eq(true)
+      end
+
+      it 'returns false if item is in stock' do 
+        burger_restaurant = double(:menu, item_out_of_stock: false) 
+        expect( burger_restaurant.item_out_of_stock('chips') ).to eq(false)
+      end
+    end
+
+    describe '#price_of_item' do 
+      it 'returns the price of an item' do 
+        burger_restaurant = double(:menu, price_of_item: 4.5) 
+        expect(burger_restaurant.price_of_item('burger') ).to eq(4.5)
       end
     end
   end
+
+  # need to add tests for new methods i added
+
 end

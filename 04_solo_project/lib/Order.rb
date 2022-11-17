@@ -17,28 +17,18 @@ class Order
   private
 
   def menu_includes_item(item)
-    @menu.menu.each do |menu_item|
-      return true if menu_item[:name] == item
-    end
-    false
+    @menu.includes_item(item)
   end
 
   def item_out_of_stock(item)
-    @menu.menu.each do |menu_item|
-      return true if menu_item[:quantity] < 1 and menu_item[:name] == item
-    end
-    false
+    @menu.item_out_of_stock(item)
   end
 
   def price_of_item(item)
-    @menu.menu.each do |menu_item|
-      return menu_item[:price] if menu_item[:name] == item
-    end
+    @menu.price_of_item(item)
   end
 
   def stock_of_item_decreases(item)
-    @menu.menu.each do |menu_item|
-      menu_item[:quantity] -= 1 if menu_item[:name] == item
-    end
+    @menu.stock_of_item_decreases(item)
   end
 end

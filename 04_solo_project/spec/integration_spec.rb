@@ -22,6 +22,50 @@ describe 'integration' do
         expect{ burger_restaurant.list_available }.to output(expected).to_stdout
       end
     end
+
+    describe '#includes_item' do
+      it 'returns true when menu includes the item' do 
+        burger_restaurant = Menu.new 
+        expect( burger_restaurant.includes_item('burger') ).to eq(true)
+      end
+
+      it 'returns false when menu doesnt include the item' do 
+        burger_restaurant = Menu.new 
+        expect( burger_restaurant.includes_item('random') ).to eq(false)
+      end
+    end
+
+    describe '#item_out_of_stock' do 
+      it 'returns true if item is out of stock' do 
+        burger_restaurant = Menu.new 
+        my_order = Order.new(burger_restaurant)
+        my_order.add('chips')
+        expect( burger_restaurant.item_out_of_stock('chips') ).to eq(true)
+      end
+
+      it 'returns false if item is in stock' do 
+        burger_restaurant = Menu.new 
+        my_order = Order.new(burger_restaurant)
+        expect( burger_restaurant.item_out_of_stock('chips') ).to eq(false)
+      end
+    end
+
+    describe '#price_of_item' do 
+      it 'returns the price of an item' do 
+        burger_restaurant = Menu.new 
+        expect(burger_restaurant.price_of_item('burger') ).to eq(4.5)
+      end
+    end
+
+    describe '#stock_of_item_decreases' do 
+      it 'decreases the stock number by 1' do 
+        burger_restaurant = Menu.new 
+        my_order = Order.new(burger_restaurant)
+        expect(burger_restaurant.menu[0][:quantity]).to eq(10)
+        my_order.add('burger')
+        expect(burger_restaurant.menu[0][:quantity]).to eq(9)
+      end
+    end
   end
   describe 'ordering' do 
     it 'adds items and their prices to the order' do 

@@ -16,5 +16,3 @@ describe Text do
     # end
   end
 end
-
-# google => mock twilio gem!!!
