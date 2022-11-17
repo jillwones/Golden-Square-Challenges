@@ -7,6 +7,8 @@ burger_restaurant = Menu.new
 burger_restaurant.list_available # shows menu items that are in stock
 my_order = Order.new
 my_order.add('burger', burger_restaurant)
+my_order.add('burger', burger_restaurant)
+my_order.add('CocaCola', burger_restaurant)
 my_order.add('chips', burger_restaurant)
 finish_my_order = FinishMyOrder.new(my_order)
 finish_my_order.receipt # puts an itemised receipt with grand total in the terminal

@@ -1,6 +1,3 @@
-require 'twilio-ruby'
-require 'dotenv/load'
-
 class FinishMyOrder
   def initialize(order, terminal = Kernel)
     @order = order
