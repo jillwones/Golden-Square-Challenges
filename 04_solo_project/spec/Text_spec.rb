@@ -1,5 +1,7 @@
 require 'Text'
 
+# test api requests here
+
 describe Text do
   context 'when initialising' do
     it 'creates an instace of Text' do

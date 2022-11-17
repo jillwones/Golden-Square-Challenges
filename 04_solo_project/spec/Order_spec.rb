@@ -1,5 +1,7 @@
 require 'Order'
 
+# test parent-child classes here
+
 describe Order do
   context 'when initialised' do
     it 'creates an instance of Order' do

@@ -1,5 +1,7 @@
 require 'Menu'
 
+# test terminal io here
+
 describe Menu do
   context 'when initialised' do
     it 'creates an instance of Menu' do
@@ -34,7 +36,7 @@ describe Menu do
       end
     end
 
-    context 'when some quantities < 0' do
+    context 'when some quantities == 0' do
       it 'putses only the available items' do
         
         # To do

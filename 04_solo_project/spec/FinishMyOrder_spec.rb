@@ -1,5 +1,7 @@
 require 'FinishMyOrder'
 
+# test peer classes and terminal io here
+
 describe FinishMyOrder do
   context 'when initialising' do
     it 'creates an instance of FinishMyOrder' do
