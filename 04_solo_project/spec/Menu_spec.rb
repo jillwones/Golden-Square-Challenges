@@ -40,6 +40,8 @@ describe Menu do
       it 'putses only the available items' do
         
         # To do
+        # make fake menu with some items out of stock
+        # fake terminal will puts only the items in stock
 
       end
     end
