@@ -27,6 +27,6 @@ class FinishMyOrder
   end
 
   def total
-    @order_array.sum { |_name, price| price }
+    @order_array.sum { |_name, price, _quantity| price }
   end
 end
