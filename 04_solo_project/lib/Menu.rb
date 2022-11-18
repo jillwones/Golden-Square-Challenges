@@ -1,5 +1,8 @@
+require_relative './format_price.rb'
+
 class Menu
   attr_reader :menu
+  include FormatPrice
 
   def initialize(terminal = Kernel, menu = [
     { name: 'burger', price: 4.50, quantity: 10 },
@@ -17,7 +20,7 @@ class Menu
     available_items.each do |item|
       name = item[:name]
       price = item[:price]
-      @terminal.puts "#{item_num}. #{name} - £#{format_price(price)}"
+      @terminal.puts "#{item_num}. #{name} - #{format_price(price)}"
       item_num += 1
     end
   end
@@ -56,9 +59,5 @@ class Menu
 
   def available_items
     @menu.select { |item| item[:quantity] > 0 }
-  end
-
-  def format_price(price)
-    format '%.2f', price
   end
 end

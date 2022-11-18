@@ -1,4 +1,7 @@
+require_relative './format_price.rb'
+
 class FinishMyOrder
+  include FormatPrice
   def initialize(order, terminal = Kernel)
     @order = order
     @order_array = order.order
@@ -21,10 +24,6 @@ class FinishMyOrder
   end
 
   private
-
-  def format_price(price)
-    "£#{format '%.2f', price}"
-  end
 
   def total
     @order_array.sum { |_name, price, _quantity| price }
