@@ -16,8 +16,10 @@ my_order = Order.new(burger_restaurant)
 my_order.add('burger', 6)
 my_order.add('CocaCola', 2)
 my_order.add('chips', 1)
-finish_my_order = FinishMyOrder.new(my_order)
-finish_my_order.receipt 
+my_order.complete_order
+
+# Calling complete_order on my_order will create a FinishMyOrder instance and pass in my_order in the initialize, then it calls #receipt on that FinishMyOrder instance as well as send_text
+# Here is the receipt you would see:
 =begin 
 What you ordered:
 6x burger - £27.00
@@ -25,7 +27,7 @@ What you ordered:
 1x chips - £2.00
 Grand Total: £31.00
 =end
-finish_my_order.send_text # sends a text to the default number (mine) with a confirmation, if I ordered at 7:05pm the text will say '"Thank you! Your order was placed and will be delivered before 7:25 PM'
+# sends a text to the default number (mine) with a confirmation, if I ordered at 7:05pm the text will say '"Thank you! Your order was placed and will be delivered before 7:25 PM'
 
 # TODOs:
 

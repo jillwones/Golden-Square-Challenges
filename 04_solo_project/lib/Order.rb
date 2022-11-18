@@ -14,6 +14,12 @@ class Order
     stock_of_item_decreases(item, number)
   end
 
+  def complete_order
+    @completed_order = FinishMyOrder.new(self)
+    @completed_order.receipt
+    @completed_order.send_text
+  end
+
   private
 
   def menu_includes_item(item)
